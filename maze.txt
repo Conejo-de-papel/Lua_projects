@@ -1,0 +1,62 @@
+-- Create the maze
+local maze = {
+    {1, 1, 1, 1, 1},
+    {1, 0, 0, 0, 1},
+    {1, 1, 1, 0, 1},
+    {1, 0, 0, 0, 1},
+    {1, 1, 1, 1, 1}
+}
+
+local playerX, playerY = 2, 2 -- Initial player position
+
+-- Function to display the maze
+local function printMaze()
+    for y = 1, #maze do
+        for x = 1, #maze[y] do
+            if x == playerX and y == playerY then
+                io.write("P ") -- Player
+            elseif maze[y][x] == 1 then
+                io.write("# ") -- Wall
+            else
+                io.write(". ") -- Empty space
+            end
+        end
+        print()
+    end
+end
+
+-- Main game loop
+while true do
+    print("\nYou are in a maze. Your goal is to find the exit (E).")
+    printMaze()
+
+    -- Check for the exit from the maze
+    if playerX == 5 and playerY == 5 then
+        print("Congratulations, you found the exit!")
+        break
+    end
+
+    print("\nChoose your action:")
+    print("1. Move up")
+    print("2. Move down")
+    print("3. Move left")
+    print("4. Move right")
+    print("5. Quit the game")
+
+    local choice = tonumber(io.read())
+    
+    if choice == 1 and playerY > 1 and maze[playerY - 1][playerX] == 0 then
+        playerY = playerY - 1
+    elseif choice == 2 and playerY < #maze and maze[playerY + 1][playerX] == 0 then
+        playerY = playerY + 1
+    elseif choice == 3 and playerX > 1 and maze[playerY][playerX - 1] == 0 then
+        playerX = playerX - 1
+    elseif choice == 4 and playerX < #maze[1] and maze[playerY][playerX + 1] == 0 then
+        playerX = playerX + 1
+    elseif choice == 5 then
+        print("You have exited the game.")
+        break
+    else
+        print("Invalid choice. Please try again.")
+    end
+end

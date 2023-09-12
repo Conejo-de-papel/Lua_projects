@@ -1,0 +1,54 @@
+-- Game Initialization
+local player = {
+    name = "Player",
+    health = 100
+}
+
+print("Welcome to the text-based game!")
+print("Your task is to navigate a dangerous adventure.")
+print("You start with " .. player.health .. " health.")
+
+-- Function for player damage
+local function takeDamage(damage)
+    player.health = player.health - damage
+    if player.health < 0 then
+        player.health = 0
+    end
+end
+
+-- Main game loop
+while player.health > 0 do
+    print("\nChoose your action:")
+    print("1. Go forward")
+    print("2. Go left")
+    print("3. Go right")
+    print("4. Go back")
+    print("5. Quit the game")
+
+    local choice = tonumber(io.read())
+    
+    if choice == 1 then
+        print("You go forward and find a chest with treasures!")
+    elseif choice == 2 then
+        print("You go left and encounter a monster!")
+        takeDamage(20)
+        print("You lost 20 health. You now have " .. player.health .. " health left.")
+    elseif choice == 3 then
+        print("You go right and find a magical fountain that restores your health.")
+        player.health = 100
+        print("Your health is fully restored!")
+    elseif choice == 4 then
+        print("You decide to go back and accidentally fall into a pit.")
+        takeDamage(50)
+        print("You lost 50 health. You now have " .. player.health .. " health left.")
+    elseif choice == 5 then
+        print("You have exited the game.")
+        break
+    else
+        print("Invalid choice. Please try again.")
+    end
+end
+
+if player.health <= 0 then
+    print("\nYou lost. Your health is depleted.")
+end

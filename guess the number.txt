@@ -1,0 +1,32 @@
+-- Generating a random number between 1 and 100
+math.randomseed(os.time())
+local secretNumber = math.random(1, 100)
+
+local attempts = 0
+local maxAttempts = 10
+
+print("Welcome to the 'Guess the Number' game!")
+print("I've chosen a number between 1 and 100. Try to guess it within "..maxAttempts.." attempts.")
+
+while attempts < maxAttempts do
+    local guess
+    repeat
+        io.write("Attempt " .. attempts + 1 .. ": Your guess? ")
+        guess = tonumber(io.read())
+    until guess and guess >= 1 and guess <= 100
+    
+    attempts = attempts + 1
+    
+    if guess < secretNumber then
+        print("Hint: My number is higher.")
+    elseif guess > secretNumber then
+        print("Hint: My number is lower.")
+    else
+        print("Congratulations, you've guessed the number " .. secretNumber .. " in " .. attempts .. " attempts!")
+        break
+    end
+end
+
+if attempts >= maxAttempts then
+    print("Game over. You've exhausted all attempts. The secret number was " .. secretNumber .. ".")
+end
